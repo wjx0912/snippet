@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>macro pragma</Title>
+			<Shortcut>MacroPragma</Shortcut>
+			<Description>macro pragma</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp"><![CDATA[
+
+// #pragma warning(disable:4996)
+// #pragma comment(lib, "wsock32.lib")
+// #pragma comment(linker, "/NODEFAULTLIB:libcd.lib /NODEFAULTLIB:libcmt.lib")
+
+// #pragma pack(push, 1) - packing is now 1
+// …
+// #pragma pack(pop) - packing is 8
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

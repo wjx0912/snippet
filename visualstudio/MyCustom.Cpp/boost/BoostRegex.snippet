@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>boost regex</Title>
+			<Shortcut>BoostRegex</Shortcut>
+			<Description>boost regex</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp"><![CDATA[
+
+#include <boost/regex.hpp>
+#include <regex>
+// ref: 
+// https://stackoverflow.com/questions/5804453/c-regular-expressions-with-boost-regex
+// https://blog.csdn.net/u011475134/article/details/76167980
+// regex example:
+// https://tool.oschina.net/uploads/apidocs/jquery/regexp.html
+// https://www.cnblogs.com/dreamingbaobei/p/9717234.html
+
+// regex简单接口（下面的boost可以换成std）：
+// bool bmatch = boost::regex_match("abcdef", boost::regex("bcd"));
+// string str = "11sigalhu22sigalhu33";
+// string new_str = regex_replace(str, regex("s(igal)h(u)"), "SS$1HH$2");
+
+std::vector<std::string> boost_regex_search(std::string str, std::string _reg)
+{
+	std::vector<std::string> result;
+
+	boost::regex reg(_reg/*, boost::regex::icase | boost::regex::perl*/);
+	boost::sregex_iterator it(str.begin(), str.end(), reg);
+	boost::sregex_iterator end;
+	for (; it != end; ++it) {
+		result.push_back(it->str());
+	}
+
+	return std::move(result);
+}
+
+std::vector<std::wstring> boost_wregex_search(std::wstring str, std::wstring _reg)
+{
+	std::vector<std::wstring> result;
+
+	boost::wregex reg(_reg/*, boost::regex::icase | boost::regex::perl*/);
+	boost::wsregex_iterator it(str.begin(), str.end(), reg);
+	boost::wsregex_iterator end;
+	for (; it != end; ++it) {
+		result.push_back(it->str());
+	}
+
+	return std::move(result);
+}
+
+std::vector<std::string> stl_regex_search(std::string str, std::string _reg)
+{
+	std::vector<std::string> result;
+
+	std::regex reg(_reg);
+	std::sregex_iterator it(str.begin(), str.end(), reg);
+	std::sregex_iterator end;
+	for (; it != end; ++it) {
+		result.push_back(it->str());
+	}
+
+	return std::move(result);
+}
+
+std::vector<std::wstring> stl_wregex_search(std::wstring str, std::wstring _reg)
+{
+	std::vector<std::wstring> result;
+
+	std::wregex reg(_reg);
+	std::wsregex_iterator it(str.begin(), str.end(), reg);
+	std::wsregex_iterator end;
+	for (; it != end; ++it) {
+		result.push_back(it->str());
+	}
+
+	return std::move(result);
+}
+
+// example:
+void test_boost_regex_search()
+{
+	const char* ip_pattern =
+		"\\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
+		"\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
+		"\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
+		"\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b";
+	auto result1 = boost_regex_search(" 192.168.0.1 abc 10.0.0.255 10.5.1 1.2.3.4a 5.4.3.2 ", ip_pattern);
+	auto result2 =   stl_regex_search(" 192.168.0.1 abc 10.0.0.255 10.5.1 1.2.3.4a 5.4.3.2 ", ip_pattern);
+
+	const TCHAR* uuid_pattern = L"[A-Za-z0-9]{8}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{12}";
+	auto result3 = boost_wregex_search(L"{8083C3D9-F400-48FA-B060-CF55F25E2D4B}_is1", uuid_pattern);
+	auto result4 =   stl_wregex_search(L"{8083C3D9-F400-48FA-B060-CF55F25E2D4B}_is1", uuid_pattern);
+}
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

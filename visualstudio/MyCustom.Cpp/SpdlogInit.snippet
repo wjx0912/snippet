@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>spdlog init</Title>
+			<Shortcut>SpdlogInit</Shortcut>
+			<Description>spdlog init</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp"><![CDATA[
+
+// 初始化
+int logfilemaxsize = 1048576;
+int logfilecount = 10;
+auto logfile = "c:\\dir1\\2.log";
+auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>(logfile, logfilemaxsize, logfilecount);
+auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+
+//tool::LOGI("logfile: %s", logfile.c_str());
+
+std::vector<spdlog::sink_ptr> sinks;
+sinks.push_back(file_sink);
+sinks.push_back(console_sink);
+auto logger = std::make_shared<spdlog::logger>("multi_sink", begin(sinks), end(sinks));
+logger->set_level(spdlog::level::debug);
+//logger->set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%n] [%^---%L---%$] [thread %t] %v");
+logger->set_pattern("[%Y-%m-%d %H:%M:%S.%e, thread %t] %v");
+spdlog::set_default_logger(logger);
+spdlog::flush_every(std::chrono::seconds(1));
+
+// 卸载
+spdlog::shutdown();		// 不调用会产生内存泄漏
+
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

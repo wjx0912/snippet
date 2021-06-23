@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>boost path file exist</Title>
+			<Shortcut>BoostPathFileExist</Shortcut>
+			<Description>boost path file exist</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp"><![CDATA[
+
+std::wstring debug_filepath = L"c:\\proxy.txt";
+boost::filesystem::path path(debug_filepath);
+boost::system::error_code error;
+if (boost::filesystem::is_regular_file(path, error)) {
+	return;
+}
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

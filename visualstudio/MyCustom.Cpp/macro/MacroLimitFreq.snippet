@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>macro limit freq</Title>
+			<Shortcut>MacroLimitFreq</Shortcut>
+			<Description>macro limit freq</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp"><![CDATA[
+
+#define limit_statement_freq(limit_ms, statement)							\
+do {													\
+	static auto t = std::chrono::high_resolution_clock::now()  - std::chrono::seconds(3600*24*100);	\
+	auto c = std::chrono::high_resolution_clock::now();						\
+	int e = (int)std::chrono::duration_cast<std::chrono::milliseconds>(c - t).count();		\
+	if (e >= limit_ms) {										\
+		t = c;											\
+		statement;										\
+	}												\
+} while(0)
+
+
+#define limit_freq_start(limit_ms)									\
+do {													\
+	static auto t = std::chrono::high_resolution_clock::now()  - std::chrono::seconds(3600*24*100);	\
+	auto c = std::chrono::high_resolution_clock::now();						\
+	int e = (int)std::chrono::duration_cast<std::chrono::milliseconds>(c - t).count();		\
+	if (e >= limit_ms) {										\
+		t = c;											\
+
+#define limit_freq_end()										\
+	}												\
+} while(0)												\
+
+// example:
+limit_freq_start(10000);
+printf("hello, world.\n");
+limit_freq_end();
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

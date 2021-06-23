@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>macro varg</Title>
+			<Shortcut>MacroVarg</Shortcut>
+			<Description>macro varg</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp"><![CDATA[
+
+// 有1-n个固定参数的宏实现，以下两种方式都可以
+#define Print_ERROR_1(fmt,...)             printf("<<-Print-ERROR_1->> "fmt"\n",##__VA_ARGS__)
+#define Print_ERROR_2(fmt,arg...)          printf("<<-Print-ERROR_2->> "fmt"\n",##arg)
+
+#define LOG(format, ...)             fprintf(stdout, format, __VA_ARGS__)
+#define debug(…)                       printf(__VA_ARGS__)
+#define DEBUG(format, ...)         printf (format, ##__VA_ARGS__)
+
+#define _TRACE(level, ...)      wprintf(##__VA_ARGS__)
+_TRACE(LOG_DEBUG, L"FullName               : %s\n", FullName().c_str());
+
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>stl time elapse</Title>
+			<Shortcut>StlTimeElapse</Shortcut>
+			<Description>stl time elapse</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp"><![CDATA[
+
+#include <chrono>
+auto start = std::chrono::high_resolution_clock::now();
+auto stop = std::chrono::high_resolution_clock::now();
+
+int elapsed = (int)std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count();
+printf("debug-rollout use time: %d\n", elapsed);
+
+// 宏版本：
+#define PROFILE_TIME_START(arg) auto start##arg = std::chrono::high_resolution_clock::now();
+#define PROFILE_TIME_END(arg) auto stop##arg = std::chrono::high_resolution_clock::now(); \
+	long elapsed##arg = (long)std::chrono::duration_cast<std::chrono::milliseconds>(stop##arg - start##arg).count();
+
+用法：
+PROFILE_TIME_START(1);
+PROFILE_TIME_END(1);
+printf("elapse: %d\n", elapsed1);
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

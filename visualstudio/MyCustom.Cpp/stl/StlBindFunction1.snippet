@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>stl bind function 1</Title>
+			<Shortcut>StlBindFunction1</Shortcut>
+			<Description>stl bind function 1</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp"><![CDATA[
+
+struct Foo
+{
+	void foo_nonstatic(int, int)
+	{
+	}
+
+	static int foo_static(int, int, int)
+	{
+		return 42;
+	}
+};
+
+#include <functional>
+int main()
+{
+	auto f_nonstatic = std::bind((void(Foo::*)(int, int))&Foo::foo_nonstatic, Foo(), 1, 2);
+	auto f_static = std::bind((int(*)(int, int, int))&Foo::foo_static, 1, 2, 3);
+}
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

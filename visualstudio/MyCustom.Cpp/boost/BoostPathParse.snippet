@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>boost path parse</Title>
+			<Shortcut>BoostPathParse</Shortcut>
+			<Description>boost path parse</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp"><![CDATA[
+
+#include <boost/filesystem.hpp>
+
+void test_boost_path_parse() {
+	boost::filesystem::path bpath(L"c:\\a\\b\\1.txt");
+	std::wstring path = bpath.parent_path().wstring();		// c:\\a\\b
+	std::wstring filename = bpath.filename().wstring();		// 1.txt
+	std::wstring stem = bpath.stem().wstring();			// 1
+	std::wstring extension = bpath.extension().wstring();		// .txt
+
+	std::wstring generic_wstring = bpath.generic_wstring();		// c:/a/b/1.txt
+	bool has_stem = bpath.has_stem();				// true（例如文件名.gitignore为false）
+	bool has_extension = bpath.has_extension();			// true（例如文件名abc为false）
+}
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

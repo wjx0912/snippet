@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>boost path loop directory recursive</Title>
+			<Shortcut>BoostPathLoopDirectoryRecursive</Shortcut>
+			<Description>boost path loop directory recursive</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp"><![CDATA[
+
+// ref:
+// https://stackoverflow.com/questions/67273/how-do-you-iterate-through-every-file-directory-recursively-in-standard-c
+#include <stdio.h>
+#include <dirent.h>
+
+int listdir(const char *path) {
+	struct dirent *entry;
+	DIR *dp;
+
+	dp = opendir(path);
+	if (dp == NULL) {
+		perror("opendir: Path does not exist or could not be read.");
+		return -1;
+	}
+
+	while ((entry = readdir(dp)))
+		puts(entry->d_name);
+
+	closedir(dp);
+	return 0;
+}
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>stl bind function 2</Title>
+			<Shortcut>StlBindFunction2</Shortcut>
+			<Description>stl bind function 2</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp"><![CDATA[
+
+#include <functional>
+
+void __loop_examination(const std::function<int(const _examination &)> func)
+{
+	_examination exam;
+	func(exam);
+}
+
+//调用：
+main()
+{
+	int count = 0;
+	__loop_examination([&count](const _examination &exam)->int {
+		count++;
+		return true;
+	});
+}
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

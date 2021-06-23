@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>stl shared ptr deleter</Title>
+			<Shortcut>StlSharedPtr</Shortcut>
+			<Description>stl shared ptr deleter</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp">
+	<![CDATA[
+
+// 
+char *buffer = (char *)malloc(len);  
+  
+std::shared_ptr<void> _free_ptr((void *)buffer, [](void *p){  
+	free(p);  
+});  
+
+// shared_ptr管理的数组必须自定义删除器：
+std::shared_ptr<gchar>  buffer(new gchar[256], [](gchar *p){delete[] p;});
+memset(buffer.get(), 0x0, 256);
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

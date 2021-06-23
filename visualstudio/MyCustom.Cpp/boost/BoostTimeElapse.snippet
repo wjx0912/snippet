@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>boost time elapse</Title>
+			<Shortcut>BoostTimeElapse</Shortcut>
+			<Description>boost time elapse</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp"><![CDATA[
+
+// 毫秒
+#include <boost/date_time/gregorian/gregorian.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
+
+boost::posix_time::ptime time1 = boost::posix_time::microsec_clock::universal_time();
+boost::posix_time::ptime time2 = boost::posix_time::microsec_clock::universal_time();
+boost::posix_time::millisec_posix_time_system_config::time_duration_type time_elapse = time2 - time1;
+int usetime = (int)time_elapse.total_milliseconds();
+
+// 纳秒
+boost::posix_time::ptime start = boost::posix_time::microsec_clock::universal_time();
+// do something
+boost::posix_time::ptime end = boost::posix_time::microsec_clock::universal_time();
+boost::posix_time::millisec_posix_time_system_config::time_duration_type time_elapse = end - start;
+__int64 _usetime = (__int64)time_elapse.total_nanoseconds();
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

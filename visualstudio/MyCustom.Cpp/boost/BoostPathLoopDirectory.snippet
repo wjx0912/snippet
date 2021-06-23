@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>boost path loop directory</Title>
+			<Shortcut>BoostPathLoopDirectory</Shortcut>
+			<Description>boost path loop directory</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp"><![CDATA[
+
+void test_boost_loop_directory()
+{
+	std::wstring findpath = L"\\..\\mypath\\";
+	boost::filesystem::path p(findpath);
+	if (boost::filesystem::is_directory(p)) {
+		boost::filesystem::directory_iterator endIter;
+		for (boost::filesystem::directory_iterator iter(p); iter != endIter; iter++) {
+			std::wstring tmppath = iter->path().wstring();
+			std::wcout << tmppath << std::endl;
+		}
+	}
+}
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

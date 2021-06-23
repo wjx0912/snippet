@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>macro dll export</Title>
+			<Shortcut>MacroDllExport</Shortcut>
+			<Description>macro dll export</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp"><![CDATA[
+
+// 在c++预定义里面定义：____MY_LIB_EXPORTS_DECL
+#if defined(_WIN32) || defined(WINDOWS)
+#ifdef FAMIKITLIB_EXPORTS
+#    define ____MY_LIB_EXPORTS_DECL __declspec(dllexport)
+#else
+#    define ____MY_LIB_EXPORTS_DECL __declspec(dllimport)
+#endif
+#else
+#    define ____MY_LIB_EXPORTS_DECL
+#endif
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

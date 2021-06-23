@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>boost string split</Title>
+			<Shortcut>BoostStringSplit</Shortcut>
+			<Description>boost string split</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp"><![CDATA[
+
+// 注意：MFC中的include boost头文件 必须放到   DEBUG_NEW  前面
+#include <boost/format.hpp>
+#include <boost/tokenizer.hpp>
+#include <boost/algorithm/string.hpp>
+#include <boost/algorithm/string/join.hpp>
+
+// (1)unicode
+std::vector<std::wstring> out_list;
+boost::split(out_list, user_wstring1, boost::is_any_of(L"\\\r\n\t .,:;()[]<>+-*/="), boost::token_compress_on);
+
+out_list.erase(std::remove_if(out_list.begin(), out_list.end()
+		, [](const std::wstring &s) { return L"" == s; }
+	), out_list.end());
+
+if (2 != out_list.size())
+	return;
+
+int testvalue = _ttoi(out_list[0].c_str());
+
+// (2)ansi
+std::vector<std::string> out_list;
+boost::split(out_list, user_string1, boost::is_any_of("\\\r\n\t .,:;()[]<>+-*/="), boost::token_compress_on);
+
+out_list.erase(std::remove_if(out_list.begin(), out_list.end()
+        , [](const std::string &s) { return "" == s; }
+    ), out_list.end());
+
+if (2 != out_list.size())
+    return;
+
+int testvalue = atoi(out_list[0].c_str());
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

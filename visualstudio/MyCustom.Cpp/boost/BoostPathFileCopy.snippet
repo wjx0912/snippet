@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>boost path file copy</Title>
+			<Shortcut>BoostPathFileCopy</Shortcut>
+			<Description>boost path file copy</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp"><![CDATA[
+
+#include <boost/filesystem.hpp>
+
+boost::filesystem::path p1(filesrc);
+boost::filesystem::path p2(filedst);
+if (boost::filesystem::copy_file(p1, p2, boost::filesystem::copy_option::overwrite_if_exists)) {
+	return true;
+} else {
+	return false;
+}
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

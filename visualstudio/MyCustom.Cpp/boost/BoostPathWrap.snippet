@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>boost path wrap</Title>
+			<Shortcut>BoostPathWrap</Shortcut>
+			<Description>boost path wrap</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp"><![CDATA[
+
+#include <boost/filesystem.hpp>
+
+std::wstring fix_path(std::wstring fullpath);
+std::string fix_path(std::string fullpath);
+bool folder_equal(std::wstring path1, std::wstring path2);
+bool folder_equal(std::string path1, std::string path2);
+std::wstring folder_parent(std::wstring path1);
+std::string folder_parent(std::string path1);
+
+// input: d:\\tmp\\\\a/../VsDebugConsole.png
+// output: d:\\tmp\\VsDebugConsole.png
+std::wstring fix_path(std::wstring fullpath)
+{
+	boost::filesystem::path bpath(fullpath);
+	bpath = boost::filesystem::system_complete(bpath);
+
+	return bpath.wstring();
+}
+
+std::string fix_path(std::string fullpath)
+{
+	boost::filesystem::path bpath(fullpath);
+	bpath = boost::filesystem::system_complete(bpath);
+
+	return bpath.string();
+}
+
+bool folder_equal(std::wstring path1, std::wstring path2)
+{
+	path1 = fix_path(path1 + L"\\");
+	path2 = fix_path(path2 + L"\\");
+	bool b1 = boost::iequals(path1, path2);
+
+	return b1;
+}
+
+bool folder_equal(std::string _path1, std::string _path2)
+{
+	std::wstring path1 = Win32xx::AtoW(_path1.c_str());
+	std::wstring path2 = Win32xx::AtoW(_path2.c_str());
+
+	return folder_equal(path1, path2);
+}
+
+std::wstring folder_parent(std::wstring path1)
+{
+	boost::filesystem::path path(path1);
+	return path.parent_path().wstring();
+}
+
+std::string folder_parent(std::string path1)
+{
+	boost::filesystem::path path(path1);
+	return path.parent_path().string();
+}
+
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>boost path loop directory recursive</Title>
+			<Shortcut>BoostPathLoopDirectoryRecursive</Shortcut>
+			<Description>boost path loop directory recursive</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp"><![CDATA[
+
+// ref:
+// https://stackoverflow.com/questions/67273/how-do-you-iterate-through-every-file-directory-recursively-in-standard-c
+
+// 方法1：
+#include <boost/filesystem.hpp>
+
+using namespace boost::filesystem;    
+struct recursive_directory_range
+{
+	typedef recursive_directory_iterator iterator;
+	recursive_directory_range(path p) : p_(p) {}
+
+	iterator begin() { return recursive_directory_iterator(p_); }
+	iterator end() { return recursive_directory_iterator(); }
+
+	path p_;
+};
+
+for (auto it : recursive_directory_range(dir_path))
+{
+	std::cout << it << std::endl;
+}
+
+// 方法2：
+#include "boost/filesystem.hpp"
+#include <iostream>
+
+using namespace boost::filesystem;
+
+for (boost::filesystem::recursive_directory_iterator it("./"), end; it != end; ++it) {
+	std::cout << *it << std::endl;                                    
+}
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

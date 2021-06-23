@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>macro shared ptr deleter</Title>
+			<Shortcut>MacroSharedPtr</Shortcut>
+			<Description>macro shared ptr deleter</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp">
+	<![CDATA[
+
+#include <memory>
+
+#define __cpp_defer_stringify_(a,b,c,d)		a##b##c##d
+#define __cpp_defer_stringify(a,b,c,d)		__cpp_defer_stringify_(a,b,c,d)
+
+#define defer_safe(type, ptr, func)									\
+std::shared_ptr<type> __cpp_defer_stringify(__defer,type,ptr,__LINE__)(ptr, [](type *p) {		\
+    if (p) {func(p);}    });
+
+
+#define defer_no_safe(type, ptr, func)									\
+std::shared_ptr<type> __cpp_defer_stringify(__defer,type,ptr,__LINE__)(ptr, [](type *p) {		\
+    func(p);    });
+
+
+#define defer_block_no_safe(type, ptr,block)								\
+std::shared_ptr<type> __cpp_defer_stringify(__defer,type,ptr,__LINE__)(ptr, [&](type *p) {		\
+    block;    });
+
+
+// 示例1：
+FILE *pFile = fopen(filename.c_str(), "rb");
+defer_safe(FILE, pFile, fclose);
+
+// 示例2：
+char *buffer = (char *)calloc(size + 1, 1);
+defer_no_safe(char, buffer, free);
+
+// 示例3：
+defer_block_no_safe(void, NULL, GetDlgItem(IDC_BUTTON_TERRITORY)->EnableWindow(TRUE));
+
+// 示例4：
+HMODULE handle = LoadLibrary(dll_path);
+defer_block_no_safe(HMODULE, NULL, FreeLibrary(handle));
+defer_block_no_safe(void, NULL, FreeLibrary(handle));
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

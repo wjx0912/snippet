@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>stl path loop directory recursive</Title>
+			<Shortcut>StlPathLoopDirectoryRecursive</Shortcut>
+			<Description>stl path loop directory recursive</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp"><![CDATA[
+
+// need C++17
+// https://stackoverflow.com/questions/67273/how-do-you-iterate-through-every-file-directory-recursively-in-standard-c
+#include <filesystem>
+
+// test1:
+void test_xxx() {
+	using recursive_directory_iterator = std::filesystem::recursive_directory_iterator;
+
+	for (const auto& dirEntry : recursive_directory_iterator(myPath))
+		std::cout << dirEntry << std::endl;
+}
+
+// test2:
+#include <filesystem>
+#include <iostream>
+#include <vector>
+namespace fs = std::filesystem;
+
+int test_xxx()
+{
+	std::ios_base::sync_with_stdio(false);
+	for (const auto &entry : fs::recursive_directory_iterator(".")) {
+		if (entry.path().extension() == ".png") {
+			std::cout << entry.path().string() << std::endl;
+		}
+	}
+	return 0;
+}
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

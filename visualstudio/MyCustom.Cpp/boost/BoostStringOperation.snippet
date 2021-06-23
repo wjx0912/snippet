@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>boost string operation</Title>
+			<Shortcut>BoostStringOperation</Shortcut>
+			<Description>boost string operation</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp"><![CDATA[
+
+#include <boost/algorithm/string.hpp>
+#include <boost/algorithm/string/find.hpp>
+#include <boost/algorithm/algorithm.hpp>
+
+std::wstring fullpath = L"aabbccddeeff";
+std::wstring systempath1 = L"ccdd";
+bool bfind = boost::ifind_first(fullpath, systempath1).empty();
+// 
+
+boost::replace_all(m_strFont, "origstr", "newstr");
+boost::replace_all(m_strFont, " ", "");
+boost::trim_left(s);//去掉字符串左边空格  
+boost::trim_right(s);//去掉字符串右边空格 
+boost::trim(s);
+
+boost::algorithm::trim_if(InstallLocation, boost::algorithm::is_any_of(L"\n\r\" "));
+
+// 其它函数：
+// starts_with, istarts_with, ends_with, iends_with, contains, icontains, equals, iequals
+
+// 字符串大小写转换;
+string strTemp = "asdQWEghhh";
+string strTemp1 = strTemp;
+string strTemp2 = strTemp;
+string strTemp3 = strTemp;
+boost::to_upper(strTemp);
+boost::to_lower(strTemp1);
+string strTemp4 = boost::to_upper_copy(strTemp2); // 返回值变成大写，参数不变;
+string strTemp5 = boost::to_lower_copy(strTemp3); // 返回值变成小写，参数不变;
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

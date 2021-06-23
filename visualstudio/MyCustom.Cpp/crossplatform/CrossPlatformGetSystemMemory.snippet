@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>cross platform get system memory</Title>
+			<Shortcut>CrossPlatformGetSystemMemory</Shortcut>
+			<Description>cross platform get system memory</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp"><![CDATA[
+
+
+#ifdef WIN32
+#include <windows.h>
+int getTotalSystemMemory()
+{
+	MEMORYSTATUSEX status;
+	status.dwLength = sizeof(status);
+	GlobalMemoryStatusEx(&status);
+	unsigned long long ramsize = status.ullTotalPhys;
+	return (int)(ramsize >> 20);
+}
+#else
+#include <unistd.h>
+int getTotalSystemMemory()
+{
+	long pages = sysconf(_SC_PHYS_PAGES);
+	long page_size = sysconf(_SC_PAGE_SIZE);
+	unsigned long long ramsize = pages * page_size;
+	return (int)(ramsize >> 20);
+}
+#endif
+
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

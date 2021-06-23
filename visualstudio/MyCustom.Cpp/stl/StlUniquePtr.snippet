@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>stl unique ptr</Title>
+			<Shortcut>StlUniquePtr</Shortcut>
+			<Description>stl unique ptr</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp"><![CDATA[
+
+// send
+SendingMethod::SendMsgId( ... )  
+{  
+	// ...  
+
+	std::unique_ptr<MyParams> myParams( new MyParams(value1, value2, value3) );  
+	if (PostThreadMessage(MSG_ID, 0, reinterpret_cast<LPARAM>(myParams.release())) {  
+		myParams.release();　　　　// is postmessage failed  
+	}  
+
+	// ...  
+}
+
+// receive
+ReceivingMethod::OnMsgId( WPARAM wParam, LPARAM lParam)  
+{  
+	std::unique_ptr<MyParams> myParams( reinterpret_cast<MyParams*>(lParam) );  
+	// ... // use object  
+}  
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>win32 console</Title>
+			<Shortcut>Win32Console</Shortcut>
+			<Description>win32 console</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp"><![CDATA[
+
+#define	CONSOLE_COLOR_BLACK			0x0		// 黑色
+#define	CONSOLE_COLOR_BLUE			0x1		// 蓝色
+#define	CONSOLE_COLOR_GREEN			0x2		// 绿色
+#define	CONSOLE_COLOR_AQUA			0x3		// 湖蓝色
+#define	CONSOLE_COLOR_RED			0x4		// 红色
+#define	CONSOLE_COLOR_PURPLE			0x5		// 紫色
+#define	CONSOLE_COLOR_YELLOW			0x6		// 黄色
+#define	CONSOLE_COLOR_WHITE			0x7		// 白色
+#define	CONSOLE_COLOR_GRAY			0x8		// 灰色
+#define	CONSOLE_COLOR_LIGHT_BLUE		0x9		// 淡蓝色
+#define	CONSOLE_COLOR_LIGHT_GREEN		0x10		// 淡绿色
+#define	CONSOLE_COLOR_LIGHT_AQUA		0x11		// 淡浅绿色
+#define	CONSOLE_COLOR_LIGHT_RED			0x12		// 淡红色
+#define	CONSOLE_COLOR_LIGHT_PURPLE		0x13		// 淡红色
+#define	CONSOLE_COLOR_LIGHT_YELLOW		0x14		// 淡黄色
+#define	CONSOLE_COLOR_BRIGHT_WHITE		0x15		// 亮白色
+#define CONSOLE_COLOR_DEFAULT			CONSOLE_COLOR_WHITE
+
+static void Set_Color(int color)				//自定义函根据参数改变字体颜色 
+{
+	if (color >= 0 && color <= 15) {			//参数在0-15的范围颜色    	
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (WORD)color);
+	} else {						//默认的颜色白色 
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (WORD)CONSOLE_COLOR_DEFAULT);
+	}
+}
+
+static void color_printf(int color, const char* format, ...)
+{
+	va_list ap;
+	va_start(ap, format);
+
+	const int _BUFFER_SIZE = (1 << 10);
+	char* buffer = (char*)malloc(_BUFFER_SIZE);
+	memset(buffer, 0x0, _BUFFER_SIZE);
+
+	{
+		vsprintf(buffer, format, ap);
+		Set_Color(color);
+		printf(buffer);
+		Set_Color(CONSOLE_COLOR_DEFAULT);
+		fflush(stdout);
+	}
+
+	free(buffer);
+	va_end(ap);
+}
+
+// example:
+// color_printf(CONSOLE_COLOR_LIGHT_GREEN, "version: %s, compile_time: %s\n", version, compile_time);
+
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>file operation fopen</Title>
+			<Shortcut>FileOperationFopen</Shortcut>
+			<Description>file operation fopen</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp"><![CDATA[
+
+#include <stdio.h>
+#include <stdlib.h>
+static std::string readFile(std::string filename)
+{
+	FILE* file = fopen(filename.c_str(), "rb");
+	if (!file) {
+		return "";
+	}
+
+	fseek(file, 0, SEEK_END);
+	int fsize = ftell(file);
+	fseek(file, 0, SEEK_SET);  // same as rewind(f);
+
+	char* buf = (char*)malloc(fsize + 1);
+	memset(buf, 0x0, fsize + 1);
+	fread(buf, 1, fsize, file);
+	fclose(file);
+	std::string result = buf;
+	free(buf);
+
+	return result;
+}
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

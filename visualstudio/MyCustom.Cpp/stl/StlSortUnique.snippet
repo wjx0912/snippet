@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>stl sort unique</Title>
+			<Shortcut>StlSortUnique</Shortcut>
+			<Description>stl sort unique</Description>
+			<Author>80101277@qq.com</Author>
+			
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Code Language="cpp"><![CDATA[
+
+// 注意用法：erase+unique并不能真正的去重复，只是把相邻的去掉，所以要先排序，后去重
+
+// 排序
+auto sort_i = [](MY_PROCESS_DATA const& v1, MY_PROCESS_DATA const& v2) ->bool {
+	CString name1 = std::get<0>(v1);
+	CString name2 = std::get<0>(v2);
+	name1.MakeUpper();
+	name2.MakeUpper();
+	return name1.Compare(name2) < 0;
+};
+std::sort(m_data.begin(), m_data.end(), sort_i);
+
+// 去重
+auto same_i = [](MY_PROCESS_DATA const& v1, MY_PROCESS_DATA const& v2)->bool {
+	CString name1 = std::get<0>(v1);
+	CString name2 = std::get<0>(v2);
+	return name1.Compare(name2) == 0;
+};
+m_data.erase(std::unique(m_data.begin(), m_data.end(), same_i), m_data.end());
+
+			$selected$$end$]]></Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+
